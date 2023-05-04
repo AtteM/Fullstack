@@ -2,11 +2,11 @@ const Header = ({course}) => {
   return <h1>{course.name}</h1>
 }
 
-const Content = ({course}) => {
+const Part = ({part}) => {
+  return <p>{part.name} {part.exercises}</p>
+}
 
-  const Part = ({part}) => {
-    return <p>{part.name} {part.exercises}</p>
-  }
+const Content = ({course}) => {
 
   return (
   <>
