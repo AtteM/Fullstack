@@ -16,17 +16,17 @@ const Statistics = (props) => {
   }
   return (
     <>
-      <Display text="good" value={props.good} />
-      <Display text="neutral" value={props.neutral} />
-      <Display text="bad" value={props.bad} />
-      <Display text="all" value={props.good + props.neutral + props.bad} />
-      <Display text="average" value={(props.good + (props.bad * -1)) / (props.good + props.neutral + props.bad)} />
-      <Display text="positive" value={((props.good + props.neutral) / (props.good + props.neutral + props.bad)) * 100 + " %"} />
+      <StatisticLine text="good" value={props.good} />
+      <StatisticLine text="neutral" value={props.neutral} />
+      <StatisticLine text="bad" value={props.bad} />
+      <StatisticLine text="all" value={props.good + props.neutral + props.bad} />
+      <StatisticLine text="average" value={(props.good + (props.bad * -1)) / (props.good + props.neutral + props.bad)} />
+      <StatisticLine text="positive" value={((props.good + props.neutral) / (props.good + props.neutral + props.bad)) * 100 + " %"} />
     </>
   )
 }
 
-const Display = props => <div>{props.text} {props.value}</div>
+const StatisticLine = props => <div>{props.text} {props.value}</div>
 
 const App = () => {
   // tallenna napit omaan tilaansa
