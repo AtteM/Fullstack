@@ -7,6 +7,13 @@ const Button = (props) => (
 )
 
 const Statistics = (props) => {
+  if ((props.good + props.bad + props.neutral) === 0) {
+    return (
+      <>
+        No feedback given
+      </>
+    )
+  }
   return (
     <>
       <Display text="good" value={props.good} />
