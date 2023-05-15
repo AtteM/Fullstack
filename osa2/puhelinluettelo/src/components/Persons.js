@@ -1,5 +1,5 @@
-const Person = ({person}) => {
-    return <p>{person.name} {person.number}</p>
+const Person = ({person, removePerson}) => {
+    return <p>{person.name} {person.number} <button onClick={() => removePerson(person.id)}>delete</button></p>
 }
   
 const Persons = (props) => {
@@ -7,7 +7,7 @@ const Persons = (props) => {
     person.name.toLowerCase().includes(props.filter.toLowerCase()))
     return (
       <div>
-        {filteredPersons.map(person => <Person key={person.name} person={person} />)}
+        {filteredPersons.map(person => <Person key={person.name} person={person} removePerson={props.removePerson}/>)}
       </div>
     )
 }
