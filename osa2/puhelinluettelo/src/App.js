@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
+import Info from './components/Info'
 import personService from './services/persons'
 
 const App = () => {
@@ -9,6 +10,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [infoMessage, setInfoMessage] = useState(null)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     personService
@@ -31,6 +34,11 @@ const App = () => {
           setPersons(persons.map(person => person.id !== result.id ? person : returnedPerson))
           setNewName('')
           setNewNumber('')
+          setInfoMessage(`Updated ${personObject.name}'s number`)
+          setError(false)
+          setTimeout(() => {
+            setInfoMessage(null)
+          }, 3000)
         })
       }
       return
@@ -42,6 +50,11 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
+        setInfoMessage(`Added ${personObject.name}`)
+        setError(false)
+        setTimeout(() => {
+          setInfoMessage(null)
+        }, 3000)
       })
   }
 
@@ -52,6 +65,11 @@ const App = () => {
         .remove(id)
         .then(() => {
         setPersons(persons.filter(person => person.id !== id))
+        setInfoMessage(`Deleted ${personObject.name}`)
+        setError(false)
+        setTimeout(() => {
+          setInfoMessage(null)
+        }, 3000)
       })
     }
   }
@@ -71,6 +89,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Info infoMessage={infoMessage} error={error}/>
       <Filter filter={newFilter} handleFilterChange={handleFilterChange}/>
       <PersonForm addPerson={addPerson} name={newName} number={newNumber}
         handleNameChange={handleNameChange} handleNumberChange={handleNumberChange}/>
