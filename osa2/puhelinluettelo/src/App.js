@@ -40,6 +40,14 @@ const App = () => {
             setInfoMessage(null)
           }, 3000)
         })
+        .catch(error => {
+          setInfoMessage(`Information of ${personObject.name} has already been removed from server`)
+          setError(true)
+          setPersons(persons.filter(person => person.id !== result.id))
+          setTimeout(() => {
+            setInfoMessage(null)
+          }, 3000)
+        })
       }
       return
     }
@@ -67,6 +75,14 @@ const App = () => {
         setPersons(persons.filter(person => person.id !== id))
         setInfoMessage(`Deleted ${personObject.name}`)
         setError(false)
+        setTimeout(() => {
+          setInfoMessage(null)
+        }, 3000)
+      })
+      .catch(error => {
+        setInfoMessage(`Information of ${personObject.name} has already been removed from server`)
+        setError(true)
+        setPersons(persons.filter(person => person.id !== id))
         setTimeout(() => {
           setInfoMessage(null)
         }, 3000)
