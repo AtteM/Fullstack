@@ -8,16 +8,18 @@ const Country = ({country}) => {
     const altName = `Flag of ${country.name.common}`
     const [weatherData, setWeatherData] = useState(null)
     const [weatherImageURL, setWeatherImageURL] = useState(null)
+    const [capital] = useState(country.capital)
+    const [countryCode] = useState(country.cca2)
 
     useEffect(() => {
       weatherService
-        .getLatLon(country.capital,country.cca2)
+        .getLatLon(capital,countryCode)
         .then(geocoding => {
             if (geocoding.length > 0) {
               getWeatherData(geocoding[0].lat,geocoding[0].lon)
             }
         })
-    }, [])
+    }, [capital,countryCode])
 
     const getWeatherData = (lat,lon) => {
       weatherService

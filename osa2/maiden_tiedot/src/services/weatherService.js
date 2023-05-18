@@ -11,7 +11,9 @@ const getCurrentWeather = (lat,lon) => {
   return request.then(response => response.data)
 }
 
-export default {
-    getLatLon,
-    getCurrentWeather
+const weatherService = {
+  getLatLon,
+  getCurrentWeather
 }
+
+export default weatherService
