@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react"
 import weatherService from "../services/weatherService"
+import Weather from "./Weather"
 
 const Country = ({country}) => {
 
+    const languages = ('languages' in country) ? country.languages : {}
     const altName = `Flag of ${country.name.common}`
     const [weatherData, setWeatherData] = useState(null)
     const [weatherImageURL, setWeatherImageURL] = useState(null)
@@ -11,7 +13,9 @@ const Country = ({country}) => {
       weatherService
         .getLatLon(country.capital,country.cca2)
         .then(geocoding => {
-          getWeatherData(geocoding[0].lat,geocoding[0].lon)
+            if (geocoding.length > 0) {
+              getWeatherData(geocoding[0].lat,geocoding[0].lon)
+            }
         })
     }, [])
 
@@ -24,10 +28,6 @@ const Country = ({country}) => {
         })
     }
 
-    if (!weatherData) {
-      return null
-    }
-
     return (
         <div>
           <h1>{country.name.common}</h1>
@@ -35,13 +35,10 @@ const Country = ({country}) => {
           <p>area {country.area}</p>
           <p><b>languages:</b></p>
           <ul>
-            {Object.keys(country.languages).map(key =><li key={key}>{country.languages[key]}</li>)}
+            {Object.keys(languages).map(key =><li key={key}>{languages[key]}</li>)}
           </ul>
           <img style={{ width: "10%", height: "10%" }} src={country.flags.png} alt={altName}></img>
-          <h2>Weather in {country.name.common}</h2>
-          <p>temperature {weatherData.main.temp} Celcius</p>
-          <img src={weatherImageURL} />
-          <p>wind {weatherData.wind.speed} m/s</p>
+          <Weather capital={country.capital} weatherData={weatherData} image_url={weatherImageURL}/>
         </div>
     )
 }
