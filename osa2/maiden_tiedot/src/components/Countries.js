@@ -9,7 +9,7 @@ const Countries = ({countries, filter, setNewFilter}) => {
     country.name.common.toLowerCase().includes(filter.toLowerCase()))
 
   const exactMatch = countries.filter(country => country.name.common === filter)
-  
+
   if (exactMatch.length === 1) {
     return (
         <div>
@@ -25,7 +25,7 @@ const Countries = ({countries, filter, setNewFilter}) => {
   } else if (filteredCountries.length <= 10) {
     return (
       <div>
-        {filteredCountries.map(country => <p key={country.cca3}>{country.name.common} <button onClick={() => setNewFilter(country.name.common)}>show</button></p>)}
+        {filteredCountries.map(country => <p key={country.cca2}>{country.name.common} <button onClick={() => setNewFilter(country.name.common)}>show</button></p>)}
       </div>
     )
   } else {
