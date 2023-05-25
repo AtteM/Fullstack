@@ -23,9 +23,10 @@ const App = () => {
     
   const addPerson = (event) => {
     event.preventDefault()
-    const result = persons.find(({name}) => name === newName)
+    //const result = persons.find(({name}) => name === newName)
     const personObject = {name: newName, number: newNumber}
 
+    /*
     if (result !== undefined) {
       if (window.confirm(`${personObject.name} is already added to phonebook, replace the old number with a new one?`)) {
         personService
@@ -51,7 +52,7 @@ const App = () => {
       }
       return
     }
-
+    */
     personService
       .create(personObject)
       .then(returnedPerson => {
