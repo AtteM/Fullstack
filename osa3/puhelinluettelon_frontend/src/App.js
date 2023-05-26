@@ -23,23 +23,31 @@ const App = () => {
     
   const addPerson = (event) => {
     event.preventDefault()
-    //const result = persons.find(({name}) => name === newName)
+    const result = persons.find(({name}) => name === newName)
     const personObject = {name: newName, number: newNumber}
 
-    /*
     if (result !== undefined) {
       if (window.confirm(`${personObject.name} is already added to phonebook, replace the old number with a new one?`)) {
         personService
           .update(result.id, personObject)
           .then((returnedPerson) => {
-          setPersons(persons.map(person => person.id !== result.id ? person : returnedPerson))
-          setNewName('')
-          setNewNumber('')
-          setInfoMessage(`Updated ${personObject.name}'s number`)
-          setError(false)
-          setTimeout(() => {
-            setInfoMessage(null)
-          }, 3000)
+            if (returnedPerson) {
+              setPersons(persons.map(person => person.id !== result.id ? person : returnedPerson))
+              setNewName('')
+              setNewNumber('')
+              setInfoMessage(`Updated ${personObject.name}'s number`)
+              setError(false)
+              setTimeout(() => {
+                setInfoMessage(null)
+              }, 3000)
+            } else {
+              setInfoMessage(`Information of ${personObject.name} has already been removed from server`)
+              setError(true)
+              setPersons(persons.filter(person => person.id !== result.id))
+              setTimeout(() => {
+                setInfoMessage(null)
+              }, 3000)
+            }
         })
         .catch(error => {
           setInfoMessage(`Information of ${personObject.name} has already been removed from server`)
@@ -52,7 +60,7 @@ const App = () => {
       }
       return
     }
-    */
+
     personService
       .create(personObject)
       .then(returnedPerson => {

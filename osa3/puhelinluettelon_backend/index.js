@@ -20,9 +20,10 @@ app.get('/api/persons', (req, res) => {
   })
 })
 
-// TODO
 app.get('/info', (req, res) => {
-  //res.send(`<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}<p>`)
+  Person.find({}).then(persons => {
+    res.send(`<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}<p>`)
+  })
 })
 
 app.get('/api/persons/:id', (req, res, next) => {
@@ -70,6 +71,21 @@ app.post('/api/persons', (req, res, next) => {
   person.save().then(savedPerson => {
     res.json(savedPerson)
   })
+})
+
+app.put('/api/persons/:id', (req, res, next) => {
+  const body = req.body
+
+  const person = {
+    name: body.name,
+    number: body.number,
+  }
+
+  Person.findByIdAndUpdate(req.params.id, person, { new: true })
+    .then(updatedPerson => {
+      res.json(updatedPerson)
+    })
+    .catch(error => next(error))
 })
 
 const unknownEndpoint = (req, res) => {
