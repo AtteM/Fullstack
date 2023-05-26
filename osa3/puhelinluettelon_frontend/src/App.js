@@ -73,6 +73,13 @@ const App = () => {
           setInfoMessage(null)
         }, 3000)
       })
+      .catch(error => {
+        setInfoMessage(error.response.data.error)
+        setError(true)
+        setTimeout(() => {
+          setInfoMessage(null)
+        }, 3000)
+      })
   }
 
   const removePerson = (id) => {
