@@ -30,7 +30,7 @@ const App = () => {
       if (window.confirm(`${personObject.name} is already added to phonebook, replace the old number with a new one?`)) {
         personService
           .update(result.id, personObject)
-          .then((returnedPerson) => {
+          .then(returnedPerson => {
             if (returnedPerson) {
               setPersons(persons.map(person => person.id !== result.id ? person : returnedPerson))
               setNewName('')
@@ -39,23 +39,22 @@ const App = () => {
               setError(false)
               setTimeout(() => {
                 setInfoMessage(null)
-              }, 3000)
+              }, 5000)
             } else {
               setInfoMessage(`Information of ${personObject.name} has already been removed from server`)
               setError(true)
               setPersons(persons.filter(person => person.id !== result.id))
               setTimeout(() => {
                 setInfoMessage(null)
-              }, 3000)
+              }, 5000)
             }
         })
         .catch(error => {
-          setInfoMessage(`Information of ${personObject.name} has already been removed from server`)
+          setInfoMessage(error.response.data.error)
           setError(true)
-          setPersons(persons.filter(person => person.id !== result.id))
           setTimeout(() => {
             setInfoMessage(null)
-          }, 3000)
+          }, 5000)
         })
       }
       return
@@ -71,14 +70,14 @@ const App = () => {
         setError(false)
         setTimeout(() => {
           setInfoMessage(null)
-        }, 3000)
+        }, 5000)
       })
       .catch(error => {
         setInfoMessage(error.response.data.error)
         setError(true)
         setTimeout(() => {
           setInfoMessage(null)
-        }, 3000)
+        }, 5000)
       })
   }
 
@@ -88,20 +87,19 @@ const App = () => {
       personService
         .remove(id)
         .then(() => {
-        setPersons(persons.filter(person => person.id !== id))
-        setInfoMessage(`Deleted ${personObject.name}`)
-        setError(false)
-        setTimeout(() => {
-          setInfoMessage(null)
-        }, 3000)
+          setPersons(persons.filter(person => person.id !== id))
+          setInfoMessage(`Deleted ${personObject.name}`)
+          setError(false)
+          setTimeout(() => {
+            setInfoMessage(null)
+          }, 5000)
       })
       .catch(error => {
-        setInfoMessage(`Information of ${personObject.name} has already been removed from server`)
+        setInfoMessage(error.response.data.error)
         setError(true)
-        setPersons(persons.filter(person => person.id !== id))
         setTimeout(() => {
           setInfoMessage(null)
-        }, 3000)
+        }, 5000)
       })
     }
   }

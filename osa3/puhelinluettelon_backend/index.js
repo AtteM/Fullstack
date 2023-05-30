@@ -40,15 +40,14 @@ app.get('/api/persons/:id', (req, res, next) => {
 
 app.delete('/api/persons/:id', (req, res, next) => {
   Person.findByIdAndRemove(req.params.id)
-    .then(deletedPerson => {
+    .then(() => {
       res.status(204).end()
     })
     .catch(error => next(error))
 })
 
 app.post('/api/persons', (req, res, next) => {
-  const body = req.body
-
+  
   const person = new Person({
     name: req.body.name,
     number: req.body.number
@@ -61,7 +60,7 @@ app.post('/api/persons', (req, res, next) => {
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
-  const { name, number} = req.body
+  const { name, number } = req.body
 
   Person.findByIdAndUpdate(
     req.params.id,
@@ -83,6 +82,7 @@ app.use(unknownEndpoint)
 
 const errorHandler = (error, req, res, next) => {
   console.error(error.message)
+  console.log(error.name)
 
   if (error.name === 'CastError') {
     return res.status(400).send({ error: 'malformatted id' })
