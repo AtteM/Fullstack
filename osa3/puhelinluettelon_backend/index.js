@@ -10,7 +10,7 @@ app.use(cors())
 app.use(express.static('build'))
 
 morgan.token('body', req => {
-    return JSON.stringify(req.body)
+  return JSON.stringify(req.body)
 })
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
@@ -47,16 +47,16 @@ app.delete('/api/persons/:id', (req, res, next) => {
 })
 
 app.post('/api/persons', (req, res, next) => {
-  
+
   const person = new Person({
     name: req.body.name,
     number: req.body.number
   })
-  
+
   person.save().then(savedPerson => {
     res.json(savedPerson)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
