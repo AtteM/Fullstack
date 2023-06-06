@@ -84,15 +84,77 @@ describe('total likes', () => {
 
 describe('favorite blog', () => {
 
-  const blog =
+  const blog1 =
+    {
+      title: 'Go To Statement Considered Harmful',
+      author: 'Edsger W. Dijkstra',
+      likes: 5
+    }
+
+  const blog2 =
     {
       title: 'Canonical string reduction',
       author: 'Edsger W. Dijkstra',
       likes: 12
     }
 
+  test('list of one blog returns that blog', () => {
+    const result = listHelper.favoriteBlog(listWithOneBlog)
+    expect(result).toEqual(blog1)
+  })
+
   test('multiple blogs return blog with most likes', () => {
     const result = listHelper.favoriteBlog(blogs)
-    expect(result).toEqual(blog)
+    expect(result).toEqual(blog2)
+  })
+})
+
+describe('most blogs', () => {
+
+  const author1  =
+    {
+      author: 'Edsger W. Dijkstra',
+      blogs: 1
+    }
+
+  const author2 =
+    {
+      author: 'Robert C. Martin',
+      blogs: 3
+    }
+
+  test('list of one blog returns author of that blog', () => {
+    const result = listHelper.mostBlogs(listWithOneBlog)
+    expect(result).toEqual(author1)
+  })
+
+  test('multiple blogs return author with most blogs', () => {
+    const result = listHelper.mostBlogs(blogs)
+    expect(result).toEqual(author2)
+  })
+})
+
+describe('most likes', () => {
+
+  const author1  =
+    {
+      author: 'Edsger W. Dijkstra',
+      likes: 5
+    }
+
+  const author2 =
+    {
+      author: 'Edsger W. Dijkstra',
+      likes: 17
+    }
+
+  test('list of one blog returns author of that blog', () => {
+    const result = listHelper.mostLikes(listWithOneBlog)
+    expect(result).toEqual(author1)
+  })
+
+  test('multiple blogs return author with most likes', () => {
+    const result = listHelper.mostLikes(blogs)
+    expect(result).toEqual(author2)
   })
 })
