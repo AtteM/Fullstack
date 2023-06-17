@@ -26,15 +26,13 @@ const favoriteBlog = (blogs) => {
   return blogs.reduce(reducer)
 }
 
-const mostBlogs = (blogs) => {
-  const counted = _.countBy(blogs,'author')
-  const author = _.maxBy(_.keys(counted), k => counted[k])
-  const maxBlogs = counted[author]
 
-  return {
-    author: author,
-    blogs: maxBlogs
-  }
+const mostBlogs = (blogs) => {
+  return _(blogs)
+    .groupBy('author')
+    .mapValues(entries => entries.length) // Count the number of blogs by taking the length of the entries
+    .map((blogs, author) => ({ author, blogs })) // Use 'blogsCount' instead of 'likes'
+    .maxBy('blogs') // Compare by 'blogsCount' instead of 'likes'
 }
 
 const mostLikes = (blogs) => {
